@@ -64,77 +64,87 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: LayoutBuilder(builder: (contextt, constraints) {
-      double scale = 0.36;
-      if(constraints.maxWidth > 500)
-        scale = 1;
-      return Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SelectableText(
-                        location,
-                        style: TextStyle(fontSize: 80*scale, color: Colors.blue),
+      double scale = 0.46;
+      if (constraints.maxWidth > 750) scale = 1;
+      return Container(
+        padding: EdgeInsets.all(5),
+        child: Stack(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SelectableText(
+                          location,
+                          style: TextStyle(
+                              fontSize: 80 * scale, color: Colors.blue),
+                        ),
                       ),
-                    ),
-                    IconButton(
-                        onPressed: () async {
-                          print("Copied");
-                          if (kIsWeb) {
-                            // running on the web!
-                            print("Click on web!");
-                            await clippy.write(location);
-                          } else {
-                            print("Click on non-web!");
-                            Clipboard.setData(ClipboardData(text: location));
-                          }
-                        },
-                        icon: Icon(Icons.content_copy))
-                  ],
-                ),
-                SelectableText(
-                  time,
-                  style: TextStyle(fontSize: 50*scale),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: SelectableText(
-                        distance,
-                        style: TextStyle(fontSize: 40*scale),
+                      IconButton(
+                          onPressed: () async {
+                            print("Copied");
+                            if (kIsWeb) {
+                              // running on the web!
+                              print("Click on web!");
+                              await clippy.write(location);
+                            } else {
+                              print("Click on non-web!");
+                              Clipboard.setData(ClipboardData(text: location));
+                            }
+                          },
+                          icon: Icon(Icons.content_copy))
+                    ],
+                  ),
+                  SelectableText(
+                    time,
+                    style: TextStyle(fontSize: 50 * (scale + 0.2)),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: SelectableText(
+                          distance,
+                          style: TextStyle(fontSize: 40 * (scale + 0.1)),
+                        ),
                       ),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          print("Update clicked!");
-                          update();
-                        },
-                        icon: Icon(
-                          Icons.replay,
-                          color: Colors.greenAccent,
-                        ))
-                  ],
-                ),
-              ],
+                      IconButton(
+                          onPressed: () {
+                            print("Update clicked!");
+                            update();
+                          },
+                          icon: Icon(
+                            Icons.replay,
+                            color: Colors.greenAccent,
+                          ))
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              "Estive por aqui...",
-              style: TextStyle(fontSize: 18, color: Colors.blue),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                "Estive por aqui...",
+                style: TextStyle(fontSize: 18, color: Colors.blue),
+              ),
             ),
-          )
-        ],
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Raph",
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+            )
+          ],
+        ),
       );
     }));
   }
