@@ -63,75 +63,79 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: SelectableText(
-                      location,
-                      style: TextStyle(fontSize: 80, color: Colors.blue),
+    return Scaffold(body: LayoutBuilder(builder: (contextt, constraints) {
+      double scale = 0.36;
+      if(constraints.maxWidth > 500)
+        scale = 1;
+      return Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SelectableText(
+                        location,
+                        style: TextStyle(fontSize: 80*scale, color: Colors.blue),
+                      ),
                     ),
-                  ),
-                  IconButton(
-                      onPressed: () async {
-                        print("Copied");
-                        if (kIsWeb) {
-                          // running on the web!
-                          print("Click on web!");
-                          await clippy.write(location);
-                        } else {
-                          print("Click on non-web!");
-                          Clipboard.setData(ClipboardData(text: location));
-                        }
-                      },
-                      icon: Icon(Icons.content_copy))
-                ],
-              ),
-              SelectableText(
-                time,
-                style: TextStyle(fontSize: 50),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: SelectableText(
-                      distance,
-                      style: TextStyle(fontSize: 40),
+                    IconButton(
+                        onPressed: () async {
+                          print("Copied");
+                          if (kIsWeb) {
+                            // running on the web!
+                            print("Click on web!");
+                            await clippy.write(location);
+                          } else {
+                            print("Click on non-web!");
+                            Clipboard.setData(ClipboardData(text: location));
+                          }
+                        },
+                        icon: Icon(Icons.content_copy))
+                  ],
+                ),
+                SelectableText(
+                  time,
+                  style: TextStyle(fontSize: 50*scale),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: SelectableText(
+                        distance,
+                        style: TextStyle(fontSize: 40*scale),
+                      ),
                     ),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        print("Update clicked!");
-                        update();
-                      },
-                      icon: Icon(
-                        Icons.replay,
-                        color: Colors.greenAccent,
-                      ))
-                ],
-              ),
-            ],
+                    IconButton(
+                        onPressed: () {
+                          print("Update clicked!");
+                          update();
+                        },
+                        icon: Icon(
+                          Icons.replay,
+                          color: Colors.greenAccent,
+                        ))
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Text(
-            "Estive por aqui...",
-            style: TextStyle(fontSize: 18,color: Colors.cyan),
-          ),
-        )
-      ],
-    ));
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Text(
+              "Estive por aqui...",
+              style: TextStyle(fontSize: 18, color: Colors.blue),
+            ),
+          )
+        ],
+      );
+    }));
   }
 }
