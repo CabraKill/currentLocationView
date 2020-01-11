@@ -71,9 +71,12 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                SelectableText(
-                  location,
-                  style: TextStyle(fontSize: 80),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: SelectableText(
+                    location,
+                    style: TextStyle(fontSize: 80),
+                  ),
                 ),
                 IconButton(
                     onPressed: () async {
@@ -82,11 +85,10 @@ class _HomeState extends State<Home> {
                         // running on the web!
                         print("Click on web!");
                         await clippy.write(location);
-                      } else{
+                      } else {
                         print("Click on non-web!");
                         Clipboard.setData(ClipboardData(text: location));
                       }
-                        
                     },
                     icon: Icon(Icons.content_copy))
               ],
